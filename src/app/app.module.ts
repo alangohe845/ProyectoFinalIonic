@@ -12,12 +12,14 @@ import { AuthServiceService } from './auth-service.service';
 import { environment } from 'src/environments/environment';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [AppComponent ,],
   imports: [BrowserModule,
             AngularFireAuthModule,
             AngularFireModule,
+            LeafletModule,
             AngularFireModule.initializeApp(environment.firebaseConfig),
             provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
             provideFirestore(() => getFirestore()),

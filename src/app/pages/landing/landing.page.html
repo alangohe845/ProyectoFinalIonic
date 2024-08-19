@@ -1,13 +1,13 @@
+<ion-content [fullscreen]="true" class="welcome-content">
+  <div class="welcome-container">
+    <ion-img src="assets/bg1.png" class="background-image" />
+    
+    <ion-title class="animated-title">¡Bienvenido!</ion-title>
+    <p class="subtitle">Crea las mejores recetas para cada ocasión y descubre tu chef interno</p>
 
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <ion-img src="assets/bg.png"/>
-    <ion-title>Explore the world </ion-title>
+    <ion-button expand="block" color="tertiary" [routerLink]="['/login']" class="login-button">
+      Explora Recetas
+      <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+    </ion-button>
   </div>
-  
-  <ion-fab  vertical="bottom" horizontal="end" style="margin-bottom: 30px;" >
-    <ion-fab-button [routerLink]="['/login']"  >
-      <ion-icon name="chevron-forward"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

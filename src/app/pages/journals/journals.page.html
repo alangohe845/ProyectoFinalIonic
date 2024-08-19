@@ -1,29 +1,33 @@
-<ion-header [translucent]="true" class="ion-no-border">
+<ion-header  class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Recetas</ion-title>
-  </ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mis recetas</ion-title>  </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="content-background">
+  <ion-button (click)="changeCardColor()" expand="full">
+    <ion-icon name="color-palette-outline"></ion-icon> Cambiar color de tarjetas
+  </ion-button>
   <ion-grid>
     <ion-row>
-      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let journal of journals" (click)="openJournal(journal)">
-        <ion-card>
-
+        <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let journal of journals" (click)="openJournal(journal)">
+        <ion-card class="recipe-card"  [ngStyle]="{'background-color': cardColor}">
           <ion-card-header>
-            <ion-card-title class="title">{{journal.title}}</ion-card-title>
-            <ion-card-subtitle  color="secondary" >06:11</ion-card-subtitle>
+            <ion-card-title class="recipe-title">{{journal.title}}</ion-card-title>
+            <ion-card-subtitle class="recipe-time" color="secondary">Receta creada: {{journal.createdAt}}</ion-card-subtitle>
           </ion-card-header>
-
-          <ion-card-content class="content">
-            {{journal.content }}
+          <ion-card-content class="recipe-content">
+            {{journal.content}}
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-modal  #modal [initialBreakpoint]="0.5" [breakpoints]="[0, 0.25, 0.5, 0.75]" trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+
+  <ion-modal #modal [initialBreakpoint]="0.5" [breakpoints]="[0, 0.25, 0.5, 0.75]" trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -36,16 +40,11 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
-        
+      <ion-content class="modal-content">
         <ion-item>
-          <ion-input label="Titulo" labelPlacement="stacked" type="text" placeholder="" [(ngModel)]="title"></ion-input>
+          <ion-input label="Título" labelPlacement="stacked" type="text" placeholder="Escribe el título" [(ngModel)]="title" class="tile-r"></ion-input>
         </ion-item>
-
-        <ion-textarea class="text-content" rows=“15”  lines="none" placeholder="Escribe la receta..."
-        [(ngModel)]="note">
-        </ion-textarea>
-      
+        <ion-textarea class="modal-textarea" rows="15" lines="none" placeholder="Escribe la receta..." [className]="card-body" [(ngModel)]="note"></ion-textarea>
       </ion-content>
     </ng-template>
   </ion-modal>

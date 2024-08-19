@@ -12,3 +12,40 @@
     color: black;
     font-size: 1.3em;
 }
+.journal-content {
+    --background: #fff;
+  }
+  
+  .ion-no-border {
+    --background: #fff0;
+    --border-color: #fff0;
+  }
+  
+  .input-item {
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    padding: 10px;
+  }
+  
+  .title-input {
+    font-size: 20px;
+    background-color: #ccc;
+    color: #c75b03ec;
+    font-weight: bold;
+    font-family: cursive;
+  }
+  
+  .text-content {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    border-radius: 10px;
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    height: 300px;
+  }
+  

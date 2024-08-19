@@ -1,50 +1,66 @@
-.input{
-    font-weight: 300;
-}
-ion-item {
-    --background: transparent;
-
-}
-
-.title{
+/* General body background */
+body {
+    background-color: #fff; /* Fondo blanco para el cuerpo de la página */
+  }
+  
+  /* General content background */
+  ion-content {
+    --background: #fff; /* Fondo blanco para el contenido */
+    color: #f1f1f1; /* Texto negro */
+  }
+  
+  .recipe-title {
+    color: #fd5826;
     font-weight: bold;
-    color: black;
-    font-size: 10px;
-    display: -webkit-box;   
-    overflow: hidden; 
-    height: 30px;
-
-}
-
-.content {
-    font-weight: 300;
-    height: 90px;
-    display: -webkit-box;   
-   overflow: hidden; 
-
-}
-ion-card {
-    --background: #F0F2F9;
+    font-size: x-large;
+    font-family: cursive;
+    font-style: italic;
   }
-  ion-label ion-note {
-    font-size: 0.9rem;
+  
+  /* Header background */
+  ion-header {
+    --background: #ff0404; /* Color de fondo para el encabezado */
   }
-
-  .category-dot{
-    color: red;
-    
+  
+  .header-title {
+    color: #fff; /* Color del texto del título del encabezado */
+    text-align: center;
+    background-color: #fd5826;
+    font-family: cursive;
+    padding: 1%;
   }
-  ion-textarea {
-    min-height: 140px;
-    textarea {
-        min-height:140px;
-    }
-}
-
-.text-content{
-    // font-size: 4em;
-    // min-height: 140px;
-    min-height:240px;
-    
-
-}
+  
+  /* Modal background */
+  .modal-content {
+    background-color: #fff; /* Fondo blanco para el contenido del modal */
+    color: #000; /* Texto negro en el modal */
+    padding: 16px; /* Espaciado interno del modal */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  ion-modal {
+    --background: #fff; /* Fondo blanco del modal */
+    color: #000; /* Texto negro en el modal */
+  }
+  
+  /* Input and Textarea styling */
+  ion-input, ion-textarea {
+    --background: #fff; /* Fondo blanco para campos de entrada y área de texto */
+    color: #000; /* Texto negro en los inputs */
+  }
+  
+  /* Card background */
+  ion-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para la tarjeta */
+    border-radius: 12px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco para las tarjetas */
+    color: #000; /* Texto negro en las tarjetas */
+  }
+  
+  /* Textarea and other components */
+  .modal-textarea {
+    background-color: #fff; /* Fondo blanco del área de texto */
+    color: #000; /* Texto negro en el área de texto */
+    border-radius: 8px; /* Bordes redondeados opcionales */
+  }
+  

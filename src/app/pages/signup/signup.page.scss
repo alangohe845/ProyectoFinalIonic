@@ -11,12 +11,78 @@
         font-size: 2rem;
     }
 }
-
+.signup-content {
+    --background: #fff;
+  }
+  
+  .signup-header {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .signup-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .signup-subtitle {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .signup-form {
+    padding: 20px;
+  }
+  
+  .input-item {
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+  }
+  
+  .input-item ion-input {
+    padding-left: 10px;
+  }
+  
+  .error-text {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #d9534f;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .login-p {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .login-anchor {
+    color: #FFC33F;
+    text-decoration: none;
+  }
+  
+  .signup-fab {
+    --background: #FFC33F;
+  }
+  
+  .signup-fab ion-icon {
+    font-size: 24px;
+    color: white;
+  }
+  
 .input{
     font-weight: 300;
 }
 ion-item {
-    --background: white;
+    --background: rgba(243, 104, 39, 0.562);
     border-radius: 10px;
     margin-bottom: 16px;
 }

@@ -16,13 +16,16 @@ export class Journal{
   userId:string;
   title: string;
   content:string;
-  createdAt:any
+  createdAt:any;
+  location?: { latitude: number; longitude: number };
 
-  constructor(userId: string, title: string, content: string, createdAt: any) {
+  constructor(userId: string, title: string, content: string, createdAt: any, location?: { latitude: number; longitude: number }) {
     this.userId = userId;
     this.title = title;
     this.content = content;
     this.createdAt = createdAt;
+    this.location = location;
+    
   }
   
 }

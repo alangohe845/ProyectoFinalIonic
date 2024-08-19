@@ -1,41 +1,45 @@
-<ion-content [fullscreen]="true">
-  <div class="header">
-    <ion-title class="title" size="large">App de recetas</ion-title>
-    <p class="subtitle">Inicia sesión para acceder a tu cuenta</p>
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="login-header">
+    <ion-img src="assets/bg1.png" class="background-image" />
+    <ion-title class="login-title" size="large">App de Recetas</ion-title>
+    <p class="login-subtitle">Inicia sesión para acceder a tu cuenta</p>
   </div>
-  <form [formGroup]="ionicForm"  novalidate>
+
+  <form [formGroup]="ionicForm" novalidate class="login-form">
     <div class="ion-padding">
-
-      <ion-item>
-        <ion-input placeholder="username" formControlName="email" class="input" />
-        <ion-icon name="person-outline"></ion-icon>
-        
+      <ion-item class="input-item">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <ion-input placeholder="Usuario" formControlName="email" class="input" type="email"></ion-input>
       </ion-item>
-    
-      <div style="padding-top: -26px;padding-bottom: 16px;" *ngIf="this.ionicForm.controls?.['email'].touched && this.ionicForm.controls?.['email'].invalid">
-          <ion-text *ngIf="errorControl.email.errors?.required" class="errorInput" color="danger">Email is required.</ion-text>
-          <ion-text *ngIf="errorControl.email.errors?.pattern" class="errorInput" color="danger">Please provide valid email.</ion-text>
-      </div>
-      <ion-item>
-        <ion-input type="password" placeholder="password" formControlName="password" class="input" />
-        <ion-icon name="lock-closed-outline"></ion-icon>
-      </ion-item>
-      <div style="padding-top: -26px;padding-bottom: 16px;" *ngIf="this.ionicForm.controls?.['password'].touched && this.ionicForm.controls?.['password'].invalid">
-          <ion-text *ngIf="errorControl.password.errors?.required" class="errorInput" color="danger">password is required.</ion-text>
-          <ion-text *ngIf="errorControl.password.errors?.pattern" class="errorInput"  color="danger">Password Must contain at least one character</ion-text>
-      </div>
-    
-      <div class="forgotpassword">
-        <a [routerLink]="['/forgot-password']" style="color: #FFC33F">¿Olvidastes tu contraseña?</a>
-      </div>
+      <ion-text *ngIf="errorControl['email'].errors?.['required'] && ionicForm.controls['email'].touched" class="error-text" color="danger">
+        Email es obligatorio.
+      </ion-text>
+      <ion-text *ngIf="errorControl['email'].errors?.['pattern'] && ionicForm.controls['email'].touched" class="error-text" color="danger">
+        Por favor, proporciona un email válido.
+      </ion-text>
 
-    </div>
-    <div class="signupLink">
-      <p class="p">¿Nuevo usuario? <a [routerLink]="['/signup']" style="color: #FFC33F">Registrate ahora</a></p>
+      <ion-item class="input-item">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-input type="password" placeholder="Contraseña" formControlName="password" class="input"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="errorControl['password'].errors?.['required'] && ionicForm.controls['password'].touched" class="error-text" color="danger">
+        La contraseña es obligatoria.
+      </ion-text>
+      <ion-text *ngIf="errorControl['password'].errors?.['pattern'] && ionicForm.controls['password'].touched" class="error-text" color="danger">
+        La contraseña debe contener al menos un carácter.
+      </ion-text>
+
+      <div class="forgot-password">
+        <a [routerLink]="['/forgot-password']" class="forgot-link">¿Olvidaste tu contraseña?</a>
+      </div>
     </div>
 
-    <ion-fab *ngIf="ionicForm.valid" vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
-      <ion-fab-button  type="submit" (click)="login()" >
+    <div class="signup-link">
+      <p>¿Nuevo usuario? <a [routerLink]="['/signup']" class="signup-anchor">Regístrate ahora</a></p>
+    </div>
+
+    <ion-fab *ngIf="ionicForm.valid" vertical="bottom" horizontal="end" class="login-fab">
+      <ion-fab-button type="submit" (click)="login()">
         <ion-icon name="chevron-forward"></ion-icon>
       </ion-fab-button>
     </ion-fab>

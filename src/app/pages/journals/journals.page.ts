@@ -1,5 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { IonModal, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { Geolocation } from '@capacitor/geolocation';
+import { IonModal, LoadingController, MenuController, ModalController, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Journal, JournalServiceService } from 'src/app/services/journal-service.service';
@@ -16,27 +17,41 @@ export class JournalsPage implements OnInit {
   title:string
   note:string
   userId:any
+  location: { latitude: number; longitude: number };
 
   selectedJournal:Journal={
   userId: '',
   title: '',
   content: '',
   createdAt: undefined,
+  location: { latitude: 0, longitude: 0 }
 }
   journals:Journal[] = []
-  constructor(private modalCtrl: ModalController,private toastCtrl: ToastController,private loadingController: LoadingController,private journalServive:JournalServiceService,private authService:AuthServiceService) {
+  constructor(private modalCtrl: ModalController,private toastCtrl: ToastController,private loadingController: LoadingController,private journalServive:JournalServiceService,private authService:AuthServiceService, private menu: MenuController) {
    }
 
 
-  addJournal(){
-       
+   async getLocation() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      this.location = {
+        latitude: coordinates.coords.latitude,
+        longitude: coordinates.coords.longitude
+      };
+      console.log('Location:', this.location);
+    } catch (error) {
+      console.error('Error getting location', error);
+    }
+  }
+  async addJournal(){
+    await this.getLocation(); // Obtain location before adding journal
       this.journalServive.addJournal(
-        {userId:"", title:this.title,content:this.note,createdAt:new Date()}
+        {userId:"", title:this.title,content:this.note,createdAt:new Date(), location: this.location }
       )?.then(async ()=>{
         this.title =''
         this.note = ''
         const toast = await this.toastCtrl.create({
-          message: "Jounal added successful",
+          message: "Receta creada con exito",
           duration:2000
         })
         toast.present()
@@ -49,6 +64,15 @@ export class JournalsPage implements OnInit {
         
       })
     
+  }
+  cardColor: string = '#F0F0F0'; 
+
+  colors: string[] = ['#FFFFFF', '#F0F2F9', '#FFDDC1', '#D1E8E2', '#F0F0F0'];
+
+  changeCardColor() {
+    const currentIndex = this.colors.indexOf(this.cardColor);
+    const nextIndex = (currentIndex + 1) % this.colors.length;
+    this.cardColor = this.colors[nextIndex];
   }
  
   cancel() {
@@ -71,15 +95,22 @@ export class JournalsPage implements OnInit {
     this.authService.getProfile().then(user => {
       this.userId = user?.uid;
       console.log(user?.uid);
-      this.journalServive.getJournals(this.userId).subscribe(res =>{
-        this.journals = res
+      this.journalServive.getJournals(this.userId).subscribe(res => {
+        this.journals = res.map(journal => {
+          // Convertir createdAt a Date si es necesario
+          if (journal.createdAt) {
+            const timestamp = journal.createdAt as any;
+            journal.createdAt = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+          }
+          return journal;
+        });
         console.log(this.journals);
-        
-    })
+      });
     }).catch(error => {
       console.error('Error getting user profile:', error);
     });
   }
+  
 
   async openJournal(journal:Journal){
     const modal = await this.modalCtrl.create({
@@ -90,6 +121,13 @@ export class JournalsPage implements OnInit {
     })
 
     await modal.present()
+  }
+  ionViewWillEnter() {
+    this.menu.enable(true, 'main-menu');
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(false, 'main-menu');
   }
 
 }

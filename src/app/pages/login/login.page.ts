@@ -13,11 +13,14 @@ import { ToastController } from '@ionic/angular';
 export class LoginPage implements OnInit {
   ionicForm: FormGroup;
 
-  // email:any
-  // password:any
-  // contact:any
-
-  constructor(private toastController: ToastController, private alertController: AlertController, private loadingController: LoadingController, private authService: AuthServiceService, private router: Router, public formBuilder: FormBuilder) { }
+  constructor(
+    private toastController: ToastController,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private authService: AuthServiceService,
+    private router: Router,
+    public formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
@@ -28,10 +31,11 @@ export class LoginPage implements OnInit {
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
         ],
       ],
-      password: ['', [
-        // Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),
-        Validators.required,
-      ]
+      password: [
+        '',
+        [
+          Validators.required,
+        ],
       ],
     });
   }
@@ -39,39 +43,48 @@ export class LoginPage implements OnInit {
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
-    // console.log(this.email + this.password);
+
     if (this.ionicForm.valid) {
+      try {
+        const user = await this.authService.loginUser(this.ionicForm.value.email, this.ionicForm.value.password);
+        await loading.dismiss();
 
-      //  await  loading.dismiss();
-      const user = await this.authService.loginUser(this.ionicForm.value.email, this.ionicForm.value.password).catch((err) => {
-        this.presentToast(err)
+        if (user) {
+          this.presentAlert('Inicio de sesión exitoso', '¡Bienvenido!');
+          this.router.navigate(['/journals']);
+        } else {
+          this.presentToast('Usuario no encontrado, verifique sus credenciales');
+        }
+      } catch (err) {
+        await loading.dismiss();
+        this.presentToast('Usuario no encontrado, verifique sus credenciales');
         console.log(err);
-        loading.dismiss();
-      })
-
-      if (user) {
-        loading.dismiss();
-        this.router.navigate(
-          ['/journals'])
       }
     } else {
-      return console.log('Please provide all the required values!');
+      await loading.dismiss();
+      this.presentToast('Favor de rellenar todos los campos correctamente.');
     }
-
   }
+
   get errorControl() {
     return this.ionicForm.controls;
   }
 
-  async presentToast(message: undefined) {
-    console.log(message);
-
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'top',
     });
-
     await toast.present();
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }

@@ -6,26 +6,25 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="deleteJounal()">
-        <ion-icon color="danger"  size="large" slot="icon-only" name="trash" >  </ion-icon>
+      <ion-button (click)="deleteJournal()">
+        <ion-icon color="danger" size="large" slot="icon-only" name="trash"></ion-icon>
       </ion-button>
-
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="journal-content">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">journal</ion-title>
+      <ion-title size="large"></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div *ngIf="journal">
-    <ion-item>
-      <ion-input label="Title"   class="title" [(ngModel)]="journal.title"></ion-input>
+    <ion-item class="input-item">
+      <ion-input label="" class="title-input" [(ngModel)]="journal.title"></ion-input>
     </ion-item>
-      <ion-textarea class="text-content" lines="none" [(ngModel)]="journal.content" ></ion-textarea>
+    <ion-textarea class="text-content" placeholder="Escribe tu contenido aquí..." [(ngModel)]="journal.content"></ion-textarea>
+    <div id="map" style="height: 400px;"></div>
   </div>
-
 </ion-content>

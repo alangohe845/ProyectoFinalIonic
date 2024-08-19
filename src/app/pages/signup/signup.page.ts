@@ -72,7 +72,7 @@ export class SignupPage implements OnInit {
 
       if (user) {
         loading.dismiss();
-        this.router.navigate(['/home'])
+        this.router.navigate(['/login'])
       }
     } else {
       return console.log('Please provide all the required values!');
